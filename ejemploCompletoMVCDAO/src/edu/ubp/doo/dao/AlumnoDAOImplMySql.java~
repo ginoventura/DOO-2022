@@ -1,0 +1,232 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pp.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import pp.dto.AlumnoDTO;
+
+/**
+ *
+ * @author agustin
+ */
+public class AlumnoDAOImplMySql implements AlumnoDAO {
+
+    public static final String DRIVER = "com.mysql.jdbc.Driver";
+    public static final String URL = "jdbc:mysql://localhost:3306/Paradigmas?zeroDateTimeBehavior=convertToNull";
+    public static final String USER = "root";
+    public static final String PASSWORD = "mysqlpassword";
+
+    public Connection createConnection() {
+        Connection conexion = null;
+        try {
+            //Cargar clase de controlador de base de datos
+            Class.forName(DRIVER);
+
+            //Crear el objeto de conexion a la base de datos
+            conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return conexion;
+    }
+
+    @Override
+    public AlumnoDTO buscarAlumno(String nombreAlumno, String apellidoAlumno) {
+        Connection con = null;
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;
+        AlumnoDTO alumno = null;
+
+        try {
+            con = createConnection();
+            String sql = "select id, nombre, apellido, fechaNacimiento, sexo, legajo "
+                    + "from alumno where nombre = ? and apellido = ?";
+            sentencia = con.prepareStatement(sql);
+            sentencia.setString(1, nombreAlumno);
+            sentencia.setString(2, apellidoAlumno);
+
+            rs = sentencia.executeQuery();
+
+            int id;
+            String nombre;
+            String apellido;
+            Date fechaNacimiento;
+            String sexo;
+            String legajo;
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+                nombre = rs.getString("nombre");
+                apellido = rs.getString("apellido");
+                fechaNacimiento = rs.getDate("fechaNacimiento");
+                sexo = rs.getString("sexo");
+                legajo = rs.getString("legajo");
+                alumno = new AlumnoDTO(id, apellido, nombre, fechaNacimiento, sexo, legajo);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            try {
+                rs.close();
+                sentencia.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.err.println(ex);
+            }
+        }
+        return alumno;
+    }
+
+    @Override
+    public List<AlumnoDTO> listarAlumnos() {
+        Connection con = null;
+        Statement sentencia = null;
+        ResultSet rs = null;
+        List<AlumnoDTO> listaAlumnos = new ArrayList<>();
+
+        try {
+            con = createConnection();
+            String sql = "select id, nombre, apellido, fechaNacimiento, sexo, legajo "
+                    + "from alumno order by apellido, nombre";
+            sentencia = con.createStatement();
+
+            rs = sentencia.executeQuery(sql);
+
+            int id;
+            String nombre;
+            String apellido;
+            Date fechaNacimiento;
+            String sexo;
+            String legajo;
+            AlumnoDTO alumno;
+
+            while (rs.next()) {
+                id = rs.getInt("id");
+                nombre = rs.getString("nombre");
+                apellido = rs.getString("apellido");
+                fechaNacimiento = rs.getDate("fechaNacimiento") != null ? new Date(rs.getDate("fechaNacimiento").getTime()) : null;
+                sexo = rs.getString("sexo");
+                legajo = rs.getString("legajo");
+                alumno = new AlumnoDTO(id, apellido, nombre, fechaNacimiento, sexo, legajo);
+                listaAlumnos.add(alumno);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+        } finally {
+            try {
+                rs.close();
+                sentencia.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.err.println(ex);
+            }
+        }
+        return listaAlumnos;
+    }
+
+    @Override
+    public boolean insertarAlumno(String apellido, String nombre, Date fechaNacimiento, String sexo, String legajo) {
+        Connection con = null;
+        PreparedStatement sentencia = null;
+
+        try {
+            con = createConnection();
+            String sql = "insert into alumno (nombre, apellido, fechaNacimiento, sexo, legajo) "
+                    + "values(?,?,?,?,?)";
+            sentencia = con.prepareStatement(sql);
+            sentencia.setString(1, nombre);
+            sentencia.setString(2, apellido);
+            sentencia.setDate(3, new java.sql.Date(fechaNacimiento.getTime()));
+            sentencia.setString(4, sexo);
+            sentencia.setString(5, legajo);
+
+            int resultado = sentencia.executeUpdate();
+
+            return (resultado > 0);
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                sentencia.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.err.println(ex);
+            }
+        }
+    }
+
+    @Override
+    public boolean modificarAlumno(int id, String apellido, String nombre, Date fechaNacimiento, String sexo, String legajo) {
+        Connection con = null;
+        PreparedStatement sentencia = null;
+
+        try {
+            con = createConnection();
+            String sql = "update alumno set nombre=?,apellido=?,fechaNacimiento=?,sexo=?,legajo=? where id=?";
+            sentencia = con.prepareStatement(sql);
+            sentencia.setString(1, nombre);
+            sentencia.setString(2, apellido);
+            sentencia.setDate(3, new java.sql.Date(fechaNacimiento.getTime()));
+            sentencia.setString(4, sexo);
+            sentencia.setString(5, legajo);
+            sentencia.setInt(6, id);
+
+            int resultado = sentencia.executeUpdate();
+
+            return (resultado > 0);
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                sentencia.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.err.println(ex);
+            }
+        }
+    }
+
+    @Override
+    public boolean borrarAlumno(int id) {
+        Connection con = null;
+        PreparedStatement sentencia = null;
+
+        try {
+            con = createConnection();
+            String sql = "delete from alumno where id = ?";
+            sentencia = con.prepareStatement(sql);
+            sentencia.setInt(1, id);
+
+            int resultado = sentencia.executeUpdate();
+
+            return (resultado > 0);
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        } finally {
+            try {
+                sentencia.close();
+                con.close();
+            } catch (SQLException ex) {
+                System.err.println(ex);
+            }
+        }
+    }
+
+}
