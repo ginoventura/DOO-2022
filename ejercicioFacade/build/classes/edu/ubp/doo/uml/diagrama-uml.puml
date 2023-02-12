@@ -1,0 +1,12 @@
+@startuml
+class edu.ubp.doo.main.EjercicioFacade
+class edu.ubp.doo.modelo.FachadaFIB
+class edu.ubp.doo.modelo.SubsistemaAFIP
+class edu.ubp.doo.modelo.SubsistemaANSES
+class edu.ubp.doo.modelo.SubsistemaVERAZ
+edu.ubp.doo.main.EjercicioFacade -down- edu.ubp.doo.modelo.FachadaFIB
+edu.ubp.doo.modelo.FachadaFIB -down- edu.ubp.doo.modelo.SubsistemaAFIP
+edu.ubp.doo.modelo.FachadaFIB -down- edu.ubp.doo.modelo.SubsistemaANSES
+edu.ubp.doo.modelo.FachadaFIB -down- edu.ubp.doo.modelo.SubsistemaVERAZ
+
+@enduml

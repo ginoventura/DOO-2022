@@ -1,0 +1,18 @@
+@startuml
+class edu.ubp.doo.main.EjercicioAdapter
+class edu.ubp.doo.modelo.Adaptador
+class edu.ubp.doo.modelo.EnchufeArgentino
+class edu.ubp.doo.modelo.EnchufeEEUU
+class edu.ubp.doo.modelo.Licuadora
+interface edu.ubp.doo.modelo.IEnchufeBritanico
+interface edu.ubp.doo.modelo.IEnchufeEuropeo
+edu.ubp.doo.main.EjercicioAdapter ..> edu.ubp.doo.modelo.Adaptador
+edu.ubp.doo.main.EjercicioAdapter ..> edu.ubp.doo.modelo.EnchufeArgentino
+edu.ubp.doo.main.EjercicioAdapter ..> edu.ubp.doo.modelo.EnchufeEEUU
+edu.ubp.doo.main.EjercicioAdapter ..> edu.ubp.doo.modelo.Licuadora
+edu.ubp.doo.main.EjercicioAdapter ..> edu.ubp.doo.modelo.IEnchufeBritanico
+edu.ubp.doo.main.EjercicioAdapter ..> edu.ubp.doo.modelo.IEnchufeEuropeo
+edu.ubp.doo.modelo.Adaptador ..|> edu.ubp.doo.modelo.IEnchufeEuropeo
+edu.ubp.doo.modelo.EnchufeArgentino ..|> edu.ubp.doo.modelo.IEnchufeEuropeo
+edu.ubp.doo.modelo.EnchufeEEUU --|> edu.ubp.doo.modelo.IEnchufeBritanico
+@enduml

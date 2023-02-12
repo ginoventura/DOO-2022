@@ -1,0 +1,23 @@
+@startuml
+abstract class edu.ubp.doo.modelo.Disco
+class edu.ubp.doo.main.EjemploAbstractFactory
+class edu.ubp.doo.modelo.BluRayDoble
+class edu.ubp.doo.modelo.BluRaySimple
+class edu.ubp.doo.modelo.DvdDoble
+class edu.ubp.doo.modelo.DvdSimple
+class edu.ubp.doo.modelo.FabricaDiscoDoble
+class edu.ubp.doo.modelo.FabricaDiscoSimple
+interface edu.ubp.doo.modelo.FabricaDisco
+edu.ubp.doo.main.EjemploAbstractFactory --> edu.ubp.doo.modelo.Disco
+edu.ubp.doo.main.EjemploAbstractFactory --> edu.ubp.doo.modelo.FabricaDisco
+edu.ubp.doo.modelo.BluRayDoble --|> edu.ubp.doo.modelo.Disco
+edu.ubp.doo.modelo.BluRaySimple --|> edu.ubp.doo.modelo.Disco
+edu.ubp.doo.modelo.DvdDoble --|> edu.ubp.doo.modelo.Disco
+edu.ubp.doo.modelo.DvdSimple --|> edu.ubp.doo.modelo.Disco
+edu.ubp.doo.modelo.FabricaDiscoDoble .up.|> edu.ubp.doo.modelo.FabricaDisco
+edu.ubp.doo.modelo.FabricaDiscoSimple .up.|> edu.ubp.doo.modelo.FabricaDisco
+edu.ubp.doo.modelo.FabricaDiscoSimple ..> edu.ubp.doo.modelo.BluRaySimple
+edu.ubp.doo.modelo.FabricaDiscoSimple ..> edu.ubp.doo.modelo.DvdSimple
+edu.ubp.doo.modelo.FabricaDiscoDoble ..> edu.ubp.doo.modelo.BluRayDoble
+edu.ubp.doo.modelo.FabricaDiscoDoble ..> edu.ubp.doo.modelo.DvdDoble
+@enduml
