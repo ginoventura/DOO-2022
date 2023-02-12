@@ -1,0 +1,19 @@
+@startuml
+    class edu.ubp.doo.modelo.Acelerador
+    class edu.ubp.doo.modelo.CentralinaFachada
+    class edu.ubp.doo.modelo.Embrague
+    class edu.ubp.doo.modelo.PalancaCambios
+    class edu.ubp.doo.main.EjemploFacade
+    interface edu.ubp.doo.modelo.IAcelerador
+    interface edu.ubp.doo.modelo.IEmbrague
+    interface edu.ubp.doo.modelo.IPalancaCambios
+    edu.ubp.doo.modelo.Acelerador .up.|> edu.ubp.doo.modelo.IAcelerador
+    edu.ubp.doo.modelo.Embrague .up.|> edu.ubp.doo.modelo.IEmbrague
+    edu.ubp.doo.modelo.PalancaCambios .up.|> edu.ubp.doo.modelo.IPalancaCambios
+     edu.ubp.doo.main.EjemploFacade -> edu.ubp.doo.modelo.CentralinaFachada
+    note "La Fachada" as notaFachada
+    notaFachada .. edu.ubp.doo.modelo.CentralinaFachada
+    edu.ubp.doo.modelo.CentralinaFachada ..> edu.ubp.doo.modelo.IAcelerador : <<usa>> 
+    edu.ubp.doo.modelo.CentralinaFachada ..> edu.ubp.doo.modelo.IEmbrague : <<usa>> 
+    edu.ubp.doo.modelo.CentralinaFachada ..> edu.ubp.doo.modelo.IPalancaCambios : <<usa>> 
+@enduml

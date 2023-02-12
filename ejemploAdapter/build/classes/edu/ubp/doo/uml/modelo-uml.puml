@@ -1,0 +1,16 @@
+@startuml
+class edu.ubp.doo.main.EjemploAdapter
+class edu.ubp.doo.modelo.AdaptadorMotorBrushless
+class edu.ubp.doo.modelo.MotorBrushless
+class edu.ubp.doo.modelo.MotorDiesel
+class edu.ubp.doo.modelo.MotorOtto
+interface edu.ubp.doo.modelo.Motor
+edu.ubp.doo.main.EjemploAdapter ..> edu.ubp.doo.modelo.AdaptadorMotorBrushless
+edu.ubp.doo.main.EjemploAdapter ..> edu.ubp.doo.modelo.MotorDiesel
+edu.ubp.doo.main.EjemploAdapter ..> edu.ubp.doo.modelo.MotorOtto
+edu.ubp.doo.main.EjemploAdapter --> edu.ubp.doo.modelo.Motor
+edu.ubp.doo.modelo.AdaptadorMotorBrushless ..|> edu.ubp.doo.modelo.Motor
+edu.ubp.doo.modelo.MotorDiesel ..|> edu.ubp.doo.modelo.Motor
+edu.ubp.doo.modelo.MotorOtto ..|> edu.ubp.doo.modelo.Motor
+edu.ubp.doo.modelo.AdaptadorMotorBrushless ..> edu.ubp.doo.modelo.MotorBrushless : <<usa>>
+@enduml

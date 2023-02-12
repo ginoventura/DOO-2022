@@ -1,0 +1,22 @@
+@startuml
+class Alumno {
+    +req1
+    +reqN
+    +NoReq1
+    +NoReqN
+    +Alumno(Builder builder)
+}
+class Builder {
+    +req1
+    +reqN
+    +NoReq1
+    +NoReqN
+    +Builder(req1,...,reqN)
+    +withNoReq1(NoReq1)
+    +withNoReqN(NoReqN)   
+    +Alumno build()
+}
+
+Alumno +-- Builder
+
+@enduml

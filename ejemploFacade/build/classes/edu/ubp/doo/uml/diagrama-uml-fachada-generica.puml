@@ -1,0 +1,49 @@
+@startuml
+class Cliente1
+class Cliente2
+hide Cliente1 circle
+hide Cliente1 methods
+hide Cliente1 attributes
+hide Cliente2 circle
+hide Cliente2 methods
+hide Cliente2 attributes
+Cliente1 -down- "   Fachada   "
+Cliente2 -down- "   Fachada   "
+
+class "   Fachada   "
+hide "   Fachada   " circle
+hide "   Fachada   " methods
+hide "   Fachada   " attributes
+
+package "Subsistema complejo" <<folder>>{
+    class Clase0
+    class Clase1 extends Clase0
+    class Clase2 extends Clase0
+    class Clase3
+    class Clase4
+    class ClaseA
+    class ClaseB
+    
+    
+    "   Fachada   " -down- Clase0
+    "   Fachada   " -down- Clase3
+    "   Fachada   " -down- Clase4
+    "   Fachada   " -down- ClaseA
+    "   Fachada   " -down- ClaseB
+
+    
+    Clase1 -right- ClaseA
+    ClaseB -down- Clase2
+    
+    
+    hide Clase0 circle
+    hide Clase1 circle
+    hide Clase2 circle
+    hide Clase3 circle
+    hide Clase4 circle
+    hide ClaseA circle
+    hide ClaseB circle
+    
+}
+
+@enduml
