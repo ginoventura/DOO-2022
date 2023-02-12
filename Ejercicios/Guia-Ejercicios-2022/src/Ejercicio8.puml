@@ -1,0 +1,103 @@
+@startuml
+
+Persona <|-- Cliente
+Persona <|-- Abogado
+Cliente "1" -- "1" Domicilio
+Localidad "1" -- "1..*" Domicilio
+Cliente "1" -- "0..*" Recibo
+DetalleRecibo --> "1" Cuota
+Recibo "1" -- "1" DetalleRecibo
+Asesoramiento "1" -- "1" Turno
+Cliente "1" -- "1" Asesoramiento
+Abogado "1" -up- "0..*" Turno
+
+class Persona {
+    - String tipo_documento
+    - long nro_documento
+    - String apellido
+    - String nombre
+}
+
+class Cliente {
+    - Persona cliente
+    - Domicilio dom
+    - CuotasAdeudadas estado_cuotas
+    - Recibo recibo_cliente
+
+    + void registrarNuevoCliente()
+    + void pedidoNuevoTurno()
+    + void comprobarEstadoCuotas()
+    + void registrarPagoCuota()
+    + void otorgarNuevoTurno()
+}
+
+class Domicilio {
+    - Localidad loc
+    - String calle
+    - int nro
+    - String barrio
+    - String dpto
+    - int piso
+}
+
+class Localidad {
+    - String nombre
+    - int codigoPostal
+}
+
+class Recibo {
+    - int nro_recibo
+    - Cliente cliente
+    - Date fecha
+    - <List>DetalleRecibo detalles
+    
+    + float calcularTotal()
+    + void imprimirRecibo()
+}
+
+class DetalleRecibo {
+    - Cuota cuota
+    - boolean pagada
+    - Recibo recibo
+
+    + float calcularSubtotal()
+    - float calcularRecargoSubtotal()
+}
+
+class Cuota {
+    - int numero_cuota
+    - int mes
+    - int anio
+    - double importe
+    - Date vencimiento
+    - double recargo
+    
+    + double calcularMonto()
+    + double calcularRecargo()
+}
+
+class Asesoramiento {
+    - Cliente datos_cliente
+    - Turno datos_turno
+    - String tipoAsesoramiento
+}
+
+class Turno {
+    - Date fecha
+    - String hora
+    - Abogado abogado_designado
+    
+    + void generarListadoTurnosPorDia()
+}
+
+class Abogado {
+    - Persona abogado
+
+    + void registrarNuevoCaso()
+    + void consultarCasoExistente()
+    + void modificarCasoExistente()
+    + void actualizarCasoExistente()
+    + void generarInformeDelCaso()
+}
+
+@enduml

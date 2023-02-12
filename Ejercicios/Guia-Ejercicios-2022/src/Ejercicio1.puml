@@ -1,0 +1,50 @@
+Ejercicio 1.
+En una empresa se realiza pedidos de compra a las proveedores con los cuales 
+trabaja, los cuales son identificados con la siguiente información: 
+razón social, CUIT, Condicion de IVA, domicilio (calle, nro, dpto., piso), 
+localidad, teléfono y fax. Cada pedido puede solicitar uno o más artículos y
+se le realiza a un solo proveedor, esto servirá para reponer el stock; de cada 
+artículo se debe conocer el nombre, descripción, unidad de medida y precio 
+unitario.
+
+@startuml
+Proveedor "1" -- "1" Domicilio
+Localidad "1" -- "1..*" Domicilio
+Pedido "0..*" --* "0..*" Articulo
+Pedido "0..*" --* "1" Proveedor
+
+class Proveedor {
+    - String razonSocial
+    - int CUIT
+    - String IVA
+    - Domicilio dom
+    - long telefono
+    - int fax
+    - Pedido ped
+}
+
+class Domicilio {
+    - String calle
+    - int nro
+    - char dpto
+    - int piso
+    - Localidad loc
+}
+
+class Localidad {
+    - String nombre
+}
+
+class Pedido {
+    - int cantidad
+}
+
+class Articulo {
+    - String nombreProducto
+    - String descripcionProducto
+    - int unidadDeMedida
+    - int stock
+    - double precioUnitario
+}
+
+@enduml

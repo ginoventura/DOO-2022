@@ -1,0 +1,44 @@
+Ejercicio 2.
+
+Una organización produce una serie de revistas periódicas. Cada revista tiene 
+muchas ediciones conteniendo el nombre de edición, la fecha de edición, y el 
+precio de la revista. En cada edición aparecen una serie de artículos , cada 
+uno con su titulo, tema, autor, etc. Cada articulo puede haber sido escrito por 
+uno o mas periodistas pertenecientes a la organización, en donde cada periodista
+pertenece a un determinado departamento dentro de dicha organización.
+
+@startuml
+
+Revista "1..*" -- "1" Edicion
+Edicion "1..*" -- "1" Articulo
+Articulo "1..*" -- "1..*" Periodista
+Periodista "1" -- "1..*" Organizacion
+
+class Revista {
+    - Edicion edicion
+}
+
+class Edicion {
+    - int cantidadDeEdiciones
+    - String nombreEdicion
+    - String fechaEdicion
+    - double precio
+    - Articulo serieDeArticulos
+    - Periodista periodista
+}
+
+class Articulo {
+    - String titulo
+    - String tema
+    - String autor
+}
+
+class Periodista {
+    - Organizacion departamento
+}
+
+class Organizacion { 
+    - String departamento
+}
+
+@enduml

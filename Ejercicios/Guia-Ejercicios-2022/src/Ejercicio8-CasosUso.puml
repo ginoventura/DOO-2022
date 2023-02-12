@@ -1,0 +1,40 @@
+@startuml
+
+'---------------------ACTORES---------------------
+actor Abogado as abogado
+actor EncargadoAdministrativo as encargadoAdmin
+
+'---------------------ADMINISTRATIVO---------------------
+usecase (1. Consultar clientes) as uc1
+usecase (2. Registrar cliente) as uc2
+usecase (3. Modificar cliente) as uc3
+usecase (4. Consultar cuotas) as uc4
+usecase (5. Cobrar cuota) as uc5
+usecase (6. Gestionar turno) as uc6
+usecase (7. Registrar turno) as uc7
+usecase (8. Generar listado de turnos diarios) as uc8
+usecase (9. Cancelar turno pendiente) as uc9
+usecase (10. Consultar caso) as uc10
+usecase (11. Registrar caso) as uc11
+usecase (12. Modificar caso) as uc12
+usecase (13. Presentar caso) as uc13
+usecase (14. Actualizar caso) as uc14
+
+encargadoAdmin --> uc1
+uc1 <.. uc2 : "<<ext>>"
+uc1 <.. uc3 : "<<ext>>"
+uc1 <.. uc4 : "<<ext>>"
+uc4 <.. uc5 : "<<ext>>"
+uc4 <.. uc6 : "<<ext>>"
+uc6 <.. uc7 : "<<ext>>"
+uc6 <.. uc8 : "<<ext>>"
+uc8 <.left. uc9 : "<<ext>>"
+
+uc8 --> abogado
+abogado --> uc10
+uc10 <.. uc11 : "<<ext>>"
+uc10 <.. uc12 : "<<ext>>"
+uc10 <.. uc13 : "<<ext>>"
+uc13 <.. uc14 : "<<ext>>"
+
+@enduml

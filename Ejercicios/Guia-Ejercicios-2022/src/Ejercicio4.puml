@@ -1,0 +1,68 @@
+Una organización dedicada a ofrecer el servicio de lavado realiza distintos 
+tipos de servicio (referidos a distintas formas de lavado lavado a seco, con 
+máquina lavadora, etc.) a las prendas que habitualmente traen sus clientes. 
+Cuando un cliente llega, se le toman sus datos personales apellido y nombre 
+del cliente, domicilio (calle, nro, dpto y piso), barrio y teléfono. A 
+continuación se le pregunta el tipo de servicio requerido y la/s prenda/s que va 
+a dejar para ello, de esta forma se le genera un número de pedido, y se 
+registra la fecha de pedido, el tipo de prenda, tipo de servicio para esa prenda, 
+la cantidad de prendas que deja por cada tipo de servicio, y se le informa al 
+cliente el precio unitario, y el precio total de lo pedido, informándole la 
+fecha posible de entrega. En general un tipo de servicio puede aplicarse a 
+cualquier tipo de prenda, y el precio del servicio depende del tipo de servicio 
+y del tipo de prenda.
+
+@startuml
+
+class Servicio {
+    - String lavado_seco
+    - String lavado_normal
+    - String precio_lavado_seco
+    - String precio_lavado_normal
+}
+
+class Cliente {
+    - String nombre
+    - String apellido
+    - long telefono
+    - Domicilio dom
+    - Servicio tipo_servicio
+    - Prenda tipo_prenda
+    - Pedido ped
+}
+
+class Domicilio {
+    - String calle
+    - int numero
+    - String dpto
+    - int piso
+    - String barrio
+}
+
+class Prenda { 
+    - String blusa
+    - String pantalon
+    - String acolchado
+    - double precio_lavado_blusa
+    - double precio_lavado_pantalon
+    - double precio_lavado_acolchado
+}
+
+class DetallePedido {
+    - int nro_pedido
+    - String fecha_pedido
+    - Prenda tipo_prenda
+    - Servicio tipo_servicio_prenda
+}
+
+class Pedido {
+    - DetallePedido pedido
+}
+
+Cliente "1" -- "1" Domicilio
+Cliente "1..*" -- "1..*" Prenda
+Pedido "0..*" --* "1" Cliente
+DetallePedido "0..*" --* "0..*" Pedido
+DetallePedido "0..*" -- "1..*" Servicio
+
+@enduml

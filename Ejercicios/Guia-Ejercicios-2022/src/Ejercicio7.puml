@@ -1,0 +1,51 @@
+Se describe a continuación la actividad que desarrolla la Sección "Comercio e 
+Industria" de una municipalidad.
+Cuando un contribuyente viene a inscribir un negocio, debe presentar 
+documentación que acredite la identidad, declarar la actividad a la que se va a 
+dedicar y los datos de ubicación física del negocio. En base a estos datos se 
+confecciona un formulario "F1", del que el contribuyente se lleva una copia. El
+duplicado del F1 se lleva al Centro de Cómputos a fin de proceder a registrar en 
+el Sistema Informático el nuevo comercio. A fin de mes, los operadores del 
+Centro  de Cómputos, liquidan la cuota correspondiente a la "Contribución sobre
+Comercio e Industria" y luego emiten los cedulones correspondientes que son 
+enviados a cada contribuyente. El cálculo de la cuota se hace en base a las 
+alícuotas definidas para cada actividad, estas alícuotas se actualizan a 
+principio de cada año cuando el Concejo Deliberante emite la ordenanza 
+tarifaria anual (esta actualización también la realizan los operadores del Centro 
+de Cómputos). El contribuyente debe efectuar el pago de los cedulones en el 
+banco. Periódicamente el banco remite a la Municipalidad los cedulones que han
+cobrado, procediéndose en el Centro de Cómputos a registrar estos pagos en la 
+cuenta del contribuyente. Si el contribuyente no ha pagado la cuota en las 
+fechas de vencimiento estipuladas se dirige a la sección y pide un cedulón 
+actualizado que luego abona en Caja. Cuando el cajero registra el cedulón 
+cobrado se registra automáticamente el pago en la cuenta del comercio.
+
+@startuml
+
+Negocio "1" -- "1" Domicilio
+Localidad "1" -- "1..*" Domicilio
+Negocio "1" -- "1" Formulario
+
+class Negocio {
+    - String nombre
+    - long telefono
+    - Domicilio dom
+    - String actividad
+}   
+
+class Domicilio {
+    - String calle 
+    - int numero
+    - String barrio
+    - Localidad loc
+}
+
+class Localidad {   
+    - String nombre
+}
+
+class Formulario {
+    - Negocio datos_negocio
+}
+
+@enduml

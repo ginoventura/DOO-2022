@@ -1,0 +1,42 @@
+En una empresa de Remis de nuestra ciudad, los móviles trabajan cubriendo 
+tres turnos del día (mañana, tarde , noche) . Cuando un cliente solicita un 
+viaje, se envía un auto que luego del recorrido, al cobrarle al cliente, te 
+emite un ticket donde constan entre otros, los siguientes datos:
+Fecha, hora importe, nro. de coche, etc.. Cada móvil es manejado siempre por el 
+mismo chófer, y dicho móvil trabaja en un único turno. La empresa trabaja con 
+clientes fijos que pertenecen a empresas a las cuales se les presta servicios 
+(NO trabaja con pasajeros comunes). Par esto, los datos de los clientes están 
+disponibles en un archivo y debe llevarse un registro de cada cliente con los 
+viajes que realiza, permitiendo el control de quien ha solicitado los servicios 
+para generar los informes pertinentes.
+
+@startuml
+
+class Ticket {
+    Date fecha
+    String hora
+    double importe
+    int nro_coche
+}
+
+class Movil { 
+    String nom_chofer
+    Turno turno
+}
+
+class Cliente {
+    String empresa
+    int viajes
+}
+
+class Turno { 
+    String mañana
+    String tarde
+    String noche
+}
+
+Movil "1..*" -- "1" Turno
+Movil "1" -- "1..*" Ticket
+Movil "1..*" -- "1..*" Cliente
+
+@enduml

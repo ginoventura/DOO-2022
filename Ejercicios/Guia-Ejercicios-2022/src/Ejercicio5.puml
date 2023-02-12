@@ -1,0 +1,43 @@
+Una empresa de servicios de medicina prepaga presenta el siguiente proceso para 
+el cobro de las prestaciones mensuales por la prestación de servicios a sus 
+afiliados, entre el día 25 y 30 de cada mes el gestor de liquidaciones realiza 
+el cálculo de los montos a cobrar a sus afiliados (individual y grupo familiar) 
+de cada plan de salud. Según el plan de cada afiliado se emiten recibos de cobro 
+(que incluyen datos del afiliado, plan de salud y monto adeudado) y una planilla 
+de Liquidación, de cuotas para cada cobrador de una zona de cobro, detallando 
+nro. de afiliado, nro. de recibo y montos.
+Cuando el cobrador regresa con la Planilla de Liquidación, luego de haber 
+realizado ta cobranza, el Encargado de la carga de las cuotas registra los montos 
+cobrados por afiliado en el sistema actualizando la correspondiente cuenta del 
+afiliado, entregando un comprobante de cobranzas realizadas al cobrador, 
+registrándose en su cuenta para su posterior liquidación. Periódicamente el 
+Gestor de Liquidaciones emite un listado de Morosos por zona y un Listado por 
+afiliado detallando las cuotas adeudadas. Cabe aclarar que una zona de cobro 
+considera un conjunto de barrios.
+
+@startuml
+
+PlanillaLiquidacion "1" -- "1..*" Recibo
+Recibo "1..*" -- "1" PlanDeSalud
+
+class PlanDeSalud {
+    - String individual
+    - String grupo_familiar
+}
+
+class Recibo {
+    - PlanDeSalud plan
+    - String nombre
+    - String apellido
+    - double monto_adeudado
+}
+
+class PlanillaLiquidacion {
+    - String zona_cobro
+    - String cobrador
+    - Recibo datos_recibo
+    - int nro_recibo
+    - int nro_afiliado
+}
+
+@enduml
