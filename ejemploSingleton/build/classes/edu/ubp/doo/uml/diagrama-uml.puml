@@ -1,0 +1,5 @@
+@startuml
+class ubp.doo.main.Main
+class ubp.doo.modelo.PaginaPrincipal
+ubp.doo.main.Main ..> ubp.doo.modelo.PaginaPrincipal
+@enduml
