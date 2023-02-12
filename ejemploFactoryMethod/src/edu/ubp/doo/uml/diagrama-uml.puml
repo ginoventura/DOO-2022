@@ -1,0 +1,13 @@
+@startuml
+abstract class ubp.doo.modelo.Persona
+abstract class ubp.doo.modelo.PersonaFactoryMethod
+class ubp.doo.main.Main
+class ubp.doo.modelo.Cliente
+class ubp.doo.modelo.Distribuidor
+ubp.doo.modelo.PersonaFactory --|> ubp.doo.modelo.PersonaFactoryMethod
+ubp.doo.modelo.PersonaFactory ..> ubp.doo.modelo.Cliente : <<Instancia>>
+ubp.doo.modelo.PersonaFactory ..> ubp.doo.modelo.Distribuidor : <<Instancia>>
+ubp.doo.main.Main .up.> ubp.doo.modelo.PersonaFactoryMethod
+ubp.doo.modelo.Cliente --|> ubp.doo.modelo.Persona
+ubp.doo.modelo.Distribuidor --|> ubp.doo.modelo.Persona
+@enduml

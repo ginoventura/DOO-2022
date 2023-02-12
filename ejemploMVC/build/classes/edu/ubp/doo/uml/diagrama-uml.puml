@@ -1,0 +1,17 @@
+@startuml
+class ubp.doo.main.Main
+class ubp.doo.Dto.ClienteDTO
+class ubp.doo.Dao.ClienteDaoImp
+class ubp.doo.Dao.ConexionSQL
+class ubp.doo.main.ComponenteNegocio
+interface ubp.doo.Dao.ClienteDAO
+abstract class ubp.doo.Dao.FabricaDao
+
+ubp.doo.Dao.ClienteDaoImp --> ubp.doo.Dao.ConexionSQL
+ubp.doo.Dao.ClienteDaoImp ..> ubp.doo.Dao.ClienteDAO
+ubp.doo.Dao.ClienteDaoImp -up-|> ubp.doo.Dao.FabricaDao
+ubp.doo.Dao.FabricaDao <.up. ubp.doo.main.ComponenteNegocio
+ubp.doo.Dto.ClienteDTO .up. ubp.doo.main.ComponenteNegocio
+ubp.doo.main.Main -> ubp.doo.main.ComponenteNegocio
+
+@enduml

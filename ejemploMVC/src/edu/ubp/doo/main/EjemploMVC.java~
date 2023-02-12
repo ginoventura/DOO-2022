@@ -1,0 +1,42 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pp.main;
+
+import pp.controlador.Controlador;
+import pp.modelo.Modelo;
+import pp.vista.CalculadoraJFrame;
+import pp.vista.CalculadoraVistaTextual;
+import pp.vista.InterfazVista;
+
+/**
+ *
+ * @author agustin
+ */
+public class EjemploMVC {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        //modelo:
+        Modelo modelo = new Modelo();
+        //vista:
+        InterfazVista vista = new CalculadoraJFrame();
+
+//        InterfazVista vista = new CalculadoraVistaTextual();
+        
+        //controlador:
+        Controlador control = new Controlador(vista, modelo);
+        
+        //configuramos la vista con el controlador
+        vista.setControlador(control);
+        
+        //y arrancamos la interfaz:
+        vista.iniciaVista();
+
+    }
+
+}

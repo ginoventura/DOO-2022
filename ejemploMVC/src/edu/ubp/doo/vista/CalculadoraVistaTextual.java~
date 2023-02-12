@@ -1,0 +1,106 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package pp.vista;
+
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import pp.controlador.Controlador;
+
+/**
+ *
+ * @author agustin
+ */
+public class CalculadoraVistaTextual implements InterfazVista {
+
+    private Controlador controlador;
+    // Gestión de la entrada por teclado
+    private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    private int numero1;
+    private int numero2;
+
+    @Override
+    public void setControlador(Controlador c) {
+        this.controlador = c;
+    }
+
+    @Override
+    public void iniciaVista() {
+        imprimeMenu();
+    }
+
+    @Override
+    public int getNumero1() {
+        return this.numero1;
+    }
+
+    @Override
+    public int getNumero2() {
+        return this.numero2;
+    }
+
+    @Override
+    public void imprimeResultado(int resultado) {
+        System.out.println("Resultado de la operación: " + resultado);
+    }
+
+    @Override
+    public void imprimeError(Exception e) {
+        System.err.println("Ocurrio una Excepción: " + e.getMessage());
+    }
+
+    private void imprimeMenu() {
+        System.out.println("Indica la operación que quiere realizar:");
+        System.out.println("1: Sumar 2 números");
+        System.out.println("2: Restar 2 números");
+        System.out.println("-1: salir");
+
+        int operacion;
+        operacion = leeTeclado();
+        switch (operacion) {
+            case -1:
+                System.out.println("Chau!!");
+                System.exit(0);
+                break;
+            case 1:
+                solicitaNros();
+                if (this.numero1 != -1 && this.numero2 != -1) {
+                    controlador.actionPerformed(new ActionEvent(this, operacion, SUMAR));
+                } else {
+                    System.out.println("Por favor ingrese  números váldos");
+                }
+                break;
+            case 2:
+                solicitaNros();
+                if (this.numero1 != -1 && this.numero2 != -1) {
+                    controlador.actionPerformed(new ActionEvent(this, operacion, RESTAR));
+                } else {
+                    System.out.println("Por favor ingrese  números váldos");
+                }
+            default:
+                System.err.println("Esa no es una opción del menu");
+        }
+    }
+
+    private void solicitaNros() {
+        System.out.println("Por favor ingrese el 1er número: ");
+        this.numero1 = leeTeclado();
+        System.out.println("Por favor ingrese el 2do número: ");
+        this.numero2 = leeTeclado();
+    }
+
+    private int leeTeclado() {
+        String s = null;
+        try {
+            s = in.readLine();
+            return Integer.parseInt(s);
+        } catch (IOException | NumberFormatException e) {
+            return -1;
+        }
+    }
+
+}
