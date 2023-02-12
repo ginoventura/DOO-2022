@@ -1,0 +1,20 @@
+@startuml
+
+package edu.ubp.doo.modelo {
+    class FabricaPlanPremium
+    class FabricaPlanSimple
+    class Internet
+    class TipoPlan
+    class Tv
+    interface FabricaProducto
+    interface Producto
+    edu.ubp.doo.main.EjercicioAbstractFactory -> FabricaProducto
+    edu.ubp.doo.main.EjercicioAbstractFactory -> Producto
+    FabricaPlanPremium -down-|> FabricaProducto
+    FabricaPlanSimple -down-|> FabricaProducto
+    Internet -up-|> Producto
+    Tv -up-|> Producto
+    TipoPlan -> Producto
+}
+
+@enduml
